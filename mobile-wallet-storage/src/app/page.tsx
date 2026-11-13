@@ -1,95 +1,33 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import { getAppleConfig, getGoogleConfig } from "@/lib/config";
+import WalletDemo from "./WalletDemo";
+import styles from "./page.module.css";
+
+// Read the credentials on every request, so adding them doesn't need a rebuild.
+export const dynamic = "force-dynamic";
 
 export default function Home() {
+  // Only whether each platform is set up is sent to the browser, never the keys.
+  const appleReady = getAppleConfig().ok;
+  const googleReady = getGoogleConfig().ok;
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>Mobile Wallet Storage</p>
+        <h1 className={styles.title}>Save a card to your phone&apos;s wallet</h1>
+        <p className={styles.lede}>
+          Pick a card, add your name, and save it to Apple Wallet or Google Wallet. The pass is built and
+          signed on the server when you tap the button.
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      </header>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <WalletDemo appleReady={appleReady} googleReady={googleReady} />
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <footer className={styles.footer}>
+        These cards are demos and have no real membership, points, or tickets attached.{" "}
+        <a href="https://chrisraiz.github.io/Mobile-Wallet-Storage/">Documentation</a> ·{" "}
+        <a href="https://github.com/ChrisRaiz/Mobile-Wallet-Storage">Source on GitHub</a>
+      </footer>
     </main>
-  )
+  );
 }

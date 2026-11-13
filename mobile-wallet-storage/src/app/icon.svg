@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Mobile Wallet Storage logo">
+  <rect x="20" y="10" width="56" height="34" rx="7" fill="#7C6CF2" transform="rotate(-8 48 27)"/>
+  <rect x="16" y="24" width="64" height="38" rx="8" fill="#3FC7A8"/>
+  <rect x="10" y="38" width="76" height="48" rx="10" fill="#14182B"/>
+  <rect x="10" y="38" width="76" height="48" rx="10" fill="none" stroke="#3FC7A8" stroke-width="2"/>
+  <rect x="60" y="54" width="26" height="16" rx="8" fill="#3FC7A8"/>
+  <circle cx="69" cy="62" r="3.5" fill="#14182B"/>
+  <path d="M20 52h28M20 60h20" stroke="#8A93B5" stroke-width="3" stroke-linecap="round"/>
+</svg>
