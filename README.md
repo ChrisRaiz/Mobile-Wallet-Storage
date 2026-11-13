@@ -174,9 +174,3 @@ Certificates and keys can be pasted as PEM text with `\n` line breaks, or as bas
 ### Hosting
 
 The pass routes sign on the server, so the app needs a Node.js host such as Vercel, rather than static hosting like GitHub Pages. Set the same environment variables in your host's settings, and set `PUBLIC_SITE_URL` so Google Wallet can show the card logo.
-
----
-
-## License
-
-Released under the [MIT License](LICENSE). Apple Wallet is a trademark of Apple Inc. and Google Wallet is a trademark of Google LLC. This project is not affiliated with either company.
