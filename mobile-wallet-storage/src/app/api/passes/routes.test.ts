@@ -77,4 +77,18 @@ describe("/api/passes/google with credentials", () => {
     expect(res.status).toBe(302);
     expect(res.headers.get("location")).toMatch(/^https:\/\/pay\.google\.com\/gp\/v\/save\/[\w-]+\.[\w-]+\.[\w-]+$/);
   });
+
+  it("shows the signed link instead of redirecting when using demo credentials", async () => {
+    vi.stubEnv("DEMO_CREDENTIALS", "true");
+    vi.stubEnv("GOOGLE_ISSUER_ID", "3388000000000000000");
+    vi.stubEnv("GOOGLE_SERVICE_ACCOUNT_EMAIL", "local-demo@example.invalid");
+    vi.stubEnv("GOOGLE_PRIVATE_KEY", makeTestGoogleKey().privateKey);
+
+    const res = await googleGET(request("google", "card=event&name=Jordan%20Lee"));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.signed).toBe(true);
+    expect(body.saveUrl).toMatch(/^https:\/\/pay\.google\.com\/gp\/v\/save\//);
+    expect(body.claims.payload.genericObjects[0].header.defaultValue.value).toBe("Jordan Lee");
+  });
 });

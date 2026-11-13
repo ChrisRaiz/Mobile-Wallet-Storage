@@ -8,6 +8,8 @@ import styles from "./page.module.css";
 interface Props {
   appleReady: boolean;
   googleReady: boolean;
+  /** The server is using the throwaway credentials from `npm run demo:setup`. */
+  demoCredentials: boolean;
 }
 
 function passUrl(platform: "apple" | "google", card: CardId, name: string, preview = false): string {
@@ -16,7 +18,7 @@ function passUrl(platform: "apple" | "google", card: CardId, name: string, previ
   return `/api/passes/${platform}?${params}`;
 }
 
-export default function WalletDemo({ appleReady, googleReady }: Props) {
+export default function WalletDemo({ appleReady, googleReady, demoCredentials }: Props) {
   const [cardId, setCardId] = useState<CardId>("membership");
   const [name, setName] = useState("Jordan Lee");
   const nameId = useId();
@@ -33,7 +35,15 @@ export default function WalletDemo({ appleReady, googleReady }: Props) {
         {demoMode && (
           <div className={styles.banner} role="note">
             <strong>Demo mode.</strong> No wallet credentials are set on this server, so passes can&apos;t be
-            signed yet. You can still preview each card and open the exact data that would be signed.
+            signed yet. You can still preview each card and open the exact data that would be signed. Run{" "}
+            <code>npm run demo:setup</code> to try the full flow locally.
+          </div>
+        )}
+        {demoCredentials && (
+          <div className={styles.banner} role="note">
+            <strong>Local demo.</strong> Passes are signed with throwaway test certificates. Apple Wallet downloads a
+            complete, signed <code>.pkpass</code> file, and Google Wallet shows the signed save link. Phones only
+            accept passes signed with credentials from Apple or Google, so add real ones to save a card.
           </div>
         )}
 
@@ -85,13 +95,13 @@ export default function WalletDemo({ appleReady, googleReady }: Props) {
           <div className={styles.buttons}>
             <WalletButton
               label="Add to Apple Wallet"
-              hint="Opens on iPhone, or in Safari on a Mac"
+              hint={demoCredentials ? "Downloads a test-signed .pkpass file" : "Opens on iPhone, or in Safari on a Mac"}
               href={details ? passUrl("apple", cardId, name) : undefined}
               ready={appleReady}
             />
             <WalletButton
               label="Add to Google Wallet"
-              hint="Opens Google's Save to Wallet page"
+              hint={demoCredentials ? "Shows the signed save link" : "Opens Google's Save to Wallet page"}
               href={details ? passUrl("google", cardId, name) : undefined}
               ready={googleReady}
             />

@@ -46,6 +46,11 @@ function missingKeys(env: Env, keys: readonly string[]): string[] {
   return keys.filter((key) => !env[key]?.trim());
 }
 
+/** True when the credentials are the throwaway ones made by `npm run demo:setup`. */
+export function usingDemoCredentials(env: Env = process.env): boolean {
+  return env.DEMO_CREDENTIALS === "true";
+}
+
 export function getAppleConfig(env: Env = process.env): ConfigResult<AppleConfig> {
   const missing = missingKeys(env, APPLE_REQUIRED);
   if (missing.length) return { ok: false, missing };
