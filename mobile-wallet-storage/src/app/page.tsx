@@ -1,4 +1,4 @@
-import { getAppleConfig, getGoogleConfig } from "@/lib/config";
+import { getAppleConfig, getGoogleConfig, usingDemoCredentials } from "@/lib/config";
 import WalletDemo from "./WalletDemo";
 import styles from "./page.module.css";
 
@@ -9,6 +9,7 @@ export default function Home() {
   // Only whether each platform is set up is sent to the browser, never the keys.
   const appleReady = getAppleConfig().ok;
   const googleReady = getGoogleConfig().ok;
+  const demoCredentials = usingDemoCredentials();
 
   return (
     <main className={styles.main}>
@@ -21,7 +22,7 @@ export default function Home() {
         </p>
       </header>
 
-      <WalletDemo appleReady={appleReady} googleReady={googleReady} />
+      <WalletDemo appleReady={appleReady} googleReady={googleReady} demoCredentials={demoCredentials} />
 
       <footer className={styles.footer}>
         These cards are demos and have no real membership, points, or tickets attached.{" "}

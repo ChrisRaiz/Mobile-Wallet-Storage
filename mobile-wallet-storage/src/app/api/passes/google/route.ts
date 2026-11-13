@@ -1,4 +1,4 @@
-import { getGoogleConfig } from "@/lib/config";
+import { getGoogleConfig, usingDemoCredentials } from "@/lib/config";
 import { buildSaveClaims, createGoogleSaveUrl } from "@/lib/google-pass";
 import { jsonResponse, NO_STORE, notConfigured, parsePassRequest, publicSiteUrl } from "@/lib/http";
 
@@ -34,6 +34,15 @@ export async function GET(request: Request): Promise<Response> {
 
   try {
     const saveUrl = createGoogleSaveUrl(details, google.config, { logoUrl });
+    if (usingDemoCredentials()) {
+      // Google rejects links signed with a test key, so show the link instead of redirecting.
+      return jsonResponse({
+        signed: true,
+        note: "Local demo: this link is signed with a throwaway test key, so Google Wallet will reject it. With real credentials, the button redirects here.",
+        saveUrl,
+        claims: buildSaveClaims(details, google.config, { logoUrl }),
+      });
+    }
     return new Response(null, { status: 302, headers: { Location: saveUrl, ...NO_STORE } });
   } catch (error) {
     console.error("Google Wallet link could not be created", error);

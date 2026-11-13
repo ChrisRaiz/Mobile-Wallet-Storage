@@ -56,6 +56,14 @@
   color: var(--text);
 }
 
+.banner code {
+  font: 0.9em var(--font-mono);
+  color: var(--text);
+}
+
+.banner + .banner {
+  margin-top: -16px;
+}
 
 .fieldset {
   border: 0;
