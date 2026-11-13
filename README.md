@@ -140,6 +140,18 @@ A `.pkpass` file is a zip archive, so you can unzip the downloaded pass to see `
 
 Without `.env.local`, the app runs in demo mode instead: the preview and data links work, and the wallet buttons show "Not configured". Delete `.env.local` and restart to go back to it.
 
+> [!TIP]
+> **After pulling updates, run `npm install` again.** Updates can add or upgrade packages, and the app only gets them when you install. If you see `Module not found: Can't resolve 'passkit-generator'`, or an error that mentions Next.js 14, stop the app, run `npm install`, and start it again.
+
+### Troubleshooting
+
+| Problem | Fix |
+| ------- | --- |
+| `Module not found: Can't resolve '...'` after updating | Stop the app, run `npm install`, then `npm run dev` |
+| The wallet buttons say "Not configured" | Run `npm run demo:setup`, then restart `npm run dev` |
+| `openssl wasn't found` | Built into macOS and Linux. On Windows, use Git Bash or WSL |
+| The app won't start because of the Node.js version | Next.js 16 needs Node.js 20.9 or later (check with `node -v`) |
+
 | Script                  | What it does                                               |
 | ----------------------- | ---------------------------------------------------------- |
 | `npm run dev`           | Starts the development server                              |
