@@ -166,6 +166,7 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
       <li><a href="#install">Run the local demo</a></li>
       <li class="sub"><a href="#demo-what">What you'll see</a></li>
       <li class="sub"><a href="#demo-inspect">Look inside a pass</a></li>
+      <li class="sub"><a href="#troubleshooting">Troubleshooting</a></li>
       <li><a href="#passes">How wallet passes work</a></li>
       <li class="sub"><a href="#apple">Apple Wallet</a></li>
       <li class="sub"><a href="#google">Google Wallet</a></li>
@@ -250,7 +251,7 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
             <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>git clone https://github.com/ChrisRaiz/Mobile-Wallet-Storage.git
 cd Mobile-Wallet-Storage/mobile-wallet-storage</pre></div>
           </li>
-          <li>Install the dependencies:
+          <li>Install the dependencies. Run this again whenever you pull new changes, since updates can add or upgrade packages:
             <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm install</pre></div>
           </li>
           <li>Create the demo credentials. This makes a throwaway test certificate authority, a Pass Type ID certificate it issues, and a test signing key for Google, and saves them in <code>.env.local</code>, which git ignores:
@@ -290,6 +291,19 @@ cat pass-check/pass.json</pre></div>
           </tbody>
         </table></div>
         <p>To go back to demo mode, delete <code>.env.local</code> and restart the app. <code>npm run demo:setup</code> won't overwrite a <code>.env.local</code> holding real credentials unless you add <code>-- --force</code>.</p>
+
+        <h3 id="troubleshooting">Troubleshooting</h3>
+        <div class="table-wrap"><table>
+          <colgroup><col style="width:36%"><col style="width:34%"><col style="width:30%"></colgroup>
+          <thead><tr><th>Problem</th><th>Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td><code style="white-space:normal">Module not found: Can't resolve 'passkit-generator'</code>, or another package</td><td>The code was updated (for example with <code>git pull</code>) but its packages weren't reinstalled</td><td>Stop the app, run <code>npm install</code>, then <code>npm run dev</code> again.</td></tr>
+            <tr><td>The error output mentions Next.js 14</td><td>Same cause: the installed packages are from before the Next.js 16 upgrade</td><td>Run <code>npm install</code>.</td></tr>
+            <tr><td>The wallet buttons still say "Not configured"</td><td>There's no <code>.env.local</code>, or the app was started before it was created</td><td>Run <code>npm run demo:setup</code>, then restart <code>npm run dev</code>.</td></tr>
+            <tr><td><code>openssl wasn't found</code></td><td>OpenSSL isn't installed or isn't on your <code>PATH</code></td><td>On macOS and Linux it's usually built in. On Windows, use Git Bash or WSL.</td></tr>
+            <tr><td>The app won't start and mentions the Node.js version</td><td>Next.js 16 needs Node.js 20.9 or later</td><td>Check with <code>node -v</code> and update Node.js.</td></tr>
+          </tbody>
+        </table></div>
 
         <h3 id="scripts">Scripts</h3>
         <div class="table-wrap"><table>
