@@ -58,8 +58,13 @@ main { padding: 56px 56px 96px; min-width: 0; }
 
 /* Hero */
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: center; max-width: 1000px; margin-bottom: 72px; }
-.status { display: inline-flex; align-items: center; gap: 8px; font: 600 12px var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--warn); border: 1px solid rgba(242,179,91,.4); background: rgba(242,179,91,.08); border-radius: 999px; padding: 4px 12px; margin-bottom: 18px; }
-.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--warn); }
+.status { display: inline-flex; align-items: center; gap: 8px; font: 600 12px var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--mint); border: 1px solid rgba(63,199,168,.4); background: rgba(63,199,168,.08); border-radius: 999px; padding: 4px 12px; margin-bottom: 18px; }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+.cta { display: inline-block; padding: 10px 18px; border-radius: 10px; background: var(--mint); color: #0B0E1A; font: 600 15px var(--body); text-decoration: none; }
+.cta:hover { background: #5AD6BA; }
+.cta.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.cta.ghost:hover { border-color: var(--mint); }
 h1 { font: 700 clamp(34px, 5vw, 50px)/1.08 var(--display); margin: 0 0 20px; letter-spacing: -0.02em; }
 .lede { font-size: 18px; color: var(--muted); margin: 0; max-width: 34em; }
 .stats { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 24px 0 0; display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 0; list-style: none; }
@@ -158,12 +163,15 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
     <ol>
       <li><a href="#overview">Overview</a></li>
       <li><a href="#status">Project status</a></li>
-      <li><a href="#install">Getting started</a></li>
+      <li><a href="#install">Run the local demo</a></li>
+      <li class="sub"><a href="#demo-what">What you'll see</a></li>
+      <li class="sub"><a href="#demo-inspect">Look inside a pass</a></li>
       <li><a href="#passes">How wallet passes work</a></li>
       <li class="sub"><a href="#apple">Apple Wallet</a></li>
       <li class="sub"><a href="#google">Google Wallet</a></li>
-      <li><a href="#design">Planned design</a></li>
-      <li><a href="#accounts">Accounts and keys</a></li>
+      <li><a href="#design">How the app works</a></li>
+      <li><a href="#accounts">Configuration</a></li>
+      <li><a href="#testing">Testing</a></li>
     </ol>
     <a class="repo" href="https://github.com/ChrisRaiz/Mobile-Wallet-Storage">
       <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -174,9 +182,10 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
   <main id="top">
     <header class="hero">
       <div>
-        <div class="status">Early stage</div>
+        <div class="status">Working example</div>
         <h1>Mobile Wallet Storage</h1>
-        <p class="lede">An example website that lets visitors save digital cards, such as memberships, loyalty cards, and event passes, to Apple Wallet or Google Wallet in one tap. It's built with Next.js and designed around each platform's official wallet API.</p>
+        <p class="lede">An example website that lets visitors save digital cards, such as memberships, loyalty cards, and event passes, to Apple Wallet or Google Wallet in one tap. It's built with Next.js and signs each pass on the server in the platform's official format.</p>
+        <p class="cta-row"><a class="cta" href="#install">Run the local demo</a><a class="cta ghost" href="https://github.com/ChrisRaiz/Mobile-Wallet-Storage">View the code</a></p>
       </div>
       <figure class="pass-wrap">
         <div class="pass" role="img" aria-label="An example membership pass. The organization name, member name, member number, expiry date, and QR code are each labelled with the pass field they come from.">
@@ -197,8 +206,8 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
       </figure>
       <ul class="stats">
         <li><strong>2</strong>wallet platforms</li>
-        <li><strong>1</strong>card, saved either way</li>
-        <li><strong>Next.js 14</strong>with TypeScript</li>
+        <li><strong>3</strong>example cards</li>
+        <li><strong>40</strong>automated tests</li>
       </ul>
     </header>
 
@@ -213,45 +222,86 @@ footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line);
           <li><strong>The server signs it.</strong> Apple and Google both require passes to be signed with keys issued to the business, so phones can trust where they came from.</li>
           <li><strong>The phone saves it.</strong> iPhone shows an "Add" prompt for the pass file, and Android opens Google's "Save to Wallet" screen.</li>
         </ol>
-        <div class="note plan"><strong>Planned design:</strong> sections 4 to 6 describe how the integrations are designed to work. They aren't in the code yet. See <a href="#status">Project status</a>.</div>
+        <div class="note plan"><strong>Try it on your computer:</strong> the app runs locally, and <code>npm run demo:setup</code> creates test credentials so both wallet buttons work without Apple or Google accounts. See <a href="#install">Run the local demo</a>. Saving a pass on a real phone needs your own credentials (see <a href="#accounts">Configuration</a>).</div>
       </section>
 
       <section id="status">
         <h2><span class="n">2</span>Project status</h2>
-        <p>The repository currently holds the Next.js app scaffold. The wallet features are next.</p>
+        <p>Both wallet integrations are built and covered by automated tests. The tests sign passes with throwaway test certificates and check them with independent tools (see <a href="#testing">Testing</a>).</p>
         <div class="table-wrap"><table>
           <thead><tr><th>Area</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td>Next.js app scaffold (App Router, TypeScript, ESLint)</td><td class="yes">Set up</td></tr>
-            <tr><td>Card selection page</td><td class="no">Not started</td></tr>
-            <tr><td>Apple Wallet pass generation (<code>.pkpass</code>)</td><td class="no">Not started</td></tr>
-            <tr><td>Google Wallet pass generation (signed save link)</td><td class="no">Not started</td></tr>
-            <tr><td>Deployment</td><td class="no">Not started</td></tr>
+            <tr><td>Card selection page with live preview</td><td class="yes">Implemented</td></tr>
+            <tr><td>Apple Wallet pass generation (<code>.pkpass</code>)</td><td class="yes">Implemented</td></tr>
+            <tr><td>Google Wallet pass generation (signed save link)</td><td class="yes">Implemented</td></tr>
+            <tr><td>Automated tests</td><td class="yes">40 tests</td></tr>
+            <tr><td>Local demo with one-command setup</td><td class="yes">Implemented</td></tr>
+            <tr><td>Tested on a real phone with production credentials</td><td class="no">Needs Apple and Google accounts</td></tr>
+            <tr><td>Hosted deployment</td><td class="no">Not deployed</td></tr>
           </tbody>
         </table></div>
       </section>
 
       <section id="install">
-        <h2><span class="n">3</span>Getting started</h2>
-        <p>You need Node.js 18.17 or later and npm. The app lives in the <code>mobile-wallet-storage</code> folder inside the repository.</p>
+        <h2><span class="n">3</span>Run the local demo</h2>
+        <p>The app runs on your own computer, and one command sets it up so every part works, with no Apple or Google accounts needed. You need <a href="https://nodejs.org/">Node.js</a> 20.9 or later, plus <code>openssl</code> and <code>unzip</code>, which come with macOS and most Linux systems. On Windows, use Git Bash or WSL.</p>
         <ol class="steps">
           <li>Clone the repo and move into the app folder:
             <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>git clone https://github.com/ChrisRaiz/Mobile-Wallet-Storage.git
 cd Mobile-Wallet-Storage/mobile-wallet-storage</pre></div>
           </li>
-          <li>Install the dependencies and start the development server:
-            <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm install
-npm run dev</pre></div>
+          <li>Install the dependencies:
+            <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm install</pre></div>
           </li>
-          <li>Open <a href="http://localhost:3000">http://localhost:3000</a>. The page reloads as you edit files in <code>src/app/</code>.</li>
+          <li>Create the demo credentials. This makes a throwaway test certificate authority, a Pass Type ID certificate it issues, and a test signing key for Google, and saves them in <code>.env.local</code>, which git ignores:
+            <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm run demo:setup</pre></div>
+          </li>
+          <li>Start the app:
+            <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm run dev</pre></div>
+          </li>
+          <li>Open <a href="http://localhost:3000">http://localhost:3000</a>, pick a card, type a name, and try both buttons.</li>
         </ol>
+
+        <h3 id="demo-what">What you'll see</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Part</th><th>In the local demo</th></tr></thead>
+          <tbody>
+            <tr><td>Card picker and preview</td><td>Updates live as you choose a card and type a name. A "Local demo" notice explains the test credentials.</td></tr>
+            <tr><td>Add to Apple Wallet</td><td>Downloads a complete, signed <code>.pkpass</code> file, such as <code>example-club.pkpass</code></td></tr>
+            <tr><td>Add to Google Wallet</td><td>Shows the signed Save to Google Wallet link and the pass data inside it</td></tr>
+            <tr><td>"Apple pass.json" and "Google Wallet token" links</td><td>Show the unsigned data each pass is built from</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note warn"><strong>Why the pass won't open in a wallet:</strong> Apple Wallet and Google Wallet only accept passes signed with credentials they issued. The demo's passes are built and signed exactly the same way, but with test credentials, so a phone or Mac will refuse them. To save a card for real, swap in your own credentials (see <a href="#accounts">Configuration</a>).</div>
+
+        <h3 id="demo-inspect">Look inside the Apple pass</h3>
+        <p>A <code>.pkpass</code> file is a zip archive, so you can open the one you downloaded and check its signature yourself. From the app folder:</p>
+        <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>unzip -o ~/Downloads/example-club.pkpass -d pass-check
+cat pass-check/pass.json</pre></div>
+        <p>You'll find <code>pass.json</code>, the icon and logo images, <code>manifest.json</code> with a SHA-1 hash of each file, and the <code>signature</code> made from that manifest.</p>
+
+        <h3 id="demo-modes">Other ways to run it</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Setup</th><th>What happens</th></tr></thead>
+          <tbody>
+            <tr><td>No <code>.env.local</code></td><td>Demo mode: the preview and data links work, and the wallet buttons show "Not configured".</td></tr>
+            <tr><td><code>npm run demo:setup</code></td><td>Local demo: both buttons produce passes signed with test credentials.</td></tr>
+            <tr><td>Your own credentials in <code>.env.local</code></td><td>Real passes that save to Apple Wallet and Google Wallet (see <a href="#accounts">Configuration</a>).</td></tr>
+          </tbody>
+        </table></div>
+        <p>To go back to demo mode, delete <code>.env.local</code> and restart the app. <code>npm run demo:setup</code> won't overwrite a <code>.env.local</code> holding real credentials unless you add <code>-- --force</code>.</p>
+
+        <h3 id="scripts">Scripts</h3>
         <div class="table-wrap"><table>
           <thead><tr><th>Script</th><th>What it does</th></tr></thead>
           <tbody>
             <tr><td><code>npm run dev</code></td><td>Starts the development server with live reload</td></tr>
+            <tr><td><code>npm run demo:setup</code></td><td>Creates throwaway test credentials for the local demo</td></tr>
+            <tr><td><code>npm test</code></td><td>Runs the test suite</td></tr>
             <tr><td><code>npm run build</code></td><td>Builds the app for production</td></tr>
             <tr><td><code>npm start</code></td><td>Serves the production build</td></tr>
             <tr><td><code>npm run lint</code></td><td>Checks the code with ESLint</td></tr>
+            <tr><td><code>npm run embed-images</code></td><td>Re-embeds the Apple pass images after you change <code>pass-assets/</code></td></tr>
           </tbody>
         </table></div>
       </section>
@@ -324,12 +374,13 @@ npm run dev</pre></div>
         <p>The server sends the finished file with the content type <code>application/vnd.apple.pkpass</code>. Safari on iPhone recognizes it and shows the pass with an <strong>Add</strong> button.</p>
 
         <h3 id="google">Google Wallet</h3>
-        <p>Google Wallet stores passes on Google's side. Each pass is an <strong>object</strong> (one visitor's card) that belongs to a <strong>class</strong> (the shared design for every card of that kind). To save one, the server puts the object in a JSON Web Token (JWT), signs it with a Google Cloud service account key, and sends the visitor to the save link.</p>
+        <p>Google Wallet stores passes on Google's side. Each pass is an <strong>object</strong> (one visitor's card) that belongs to a <strong>class</strong> (the shared design for every card of that kind). To save one, the server puts the class and object in a JSON Web Token (JWT), signs it with a Google Cloud service account key, and sends the visitor to the save link. Google creates both when the card is saved.</p>
         <div class="code-block"><div class="bar-top"><span>JWT payload</span><button class="copy" type="button">Copy</button></div><pre>{
   <span class="k">"iss"</span>: <span class="s">"wallet@your-project.iam.gserviceaccount.com"</span>,
   <span class="k">"aud"</span>: <span class="s">"google"</span>,
   <span class="k">"typ"</span>: <span class="s">"savetowallet"</span>,
   <span class="k">"payload"</span>: {
+    <span class="k">"genericClasses"</span>: [{ <span class="k">"id"</span>: <span class="s">"ISSUER_ID.membership"</span> }],
     <span class="k">"genericObjects"</span>: [{
       <span class="k">"id"</span>: <span class="s">"ISSUER_ID.member-0042-1187"</span>,
       <span class="k">"classId"</span>: <span class="s">"ISSUER_ID.membership"</span>
@@ -338,25 +389,35 @@ npm run dev</pre></div>
 }</pre></div>
         <div class="code-block"><div class="bar-top"><span>save link</span><button class="copy" type="button">Copy</button></div><pre>https://pay.google.com/gp/v/save/<span class="s">&lt;signed JWT&gt;</span></pre></div>
         <p>Opening the link on Android shows the card with a <strong>Save</strong> button. A full object would also include the card's header, fields, barcode, and colors.</p>
-        <div class="note">Apple and Google both publish official "Add to Wallet" button artwork and usage guidelines. The site should use those badges rather than custom buttons.</div>
+        <div class="note">Apple and Google both publish official "Add to Wallet" button artwork and usage guidelines. Before going live, swap the app's plain buttons for those official badges.</div>
       </section>
 
       <section id="design">
-        <h2><span class="n">5</span>Planned design</h2>
-        <p>The wallet work is planned as two Next.js route handlers, so signing keys stay on the server and never reach the browser.</p>
+        <h2><span class="n">5</span>How the app works</h2>
+        <p>The page is a Next.js server component that checks which platforms have credentials. Only a yes or no for each platform is sent to the browser, never the keys. The card picker, name field, and live preview run in the browser. Both buttons are plain links to two route handlers that build and sign passes on the server.</p>
         <div class="table-wrap"><table>
-          <thead><tr><th>Planned route</th><th>Returns</th></tr></thead>
+          <thead><tr><th>Route</th><th>Returns</th></tr></thead>
           <tbody>
-            <tr><td><code>GET /api/passes/apple</code></td><td>A signed <code>.pkpass</code> file for the chosen card</td></tr>
-            <tr><td><code>GET /api/passes/google</code></td><td>A redirect to the Google Wallet save link for the chosen card</td></tr>
+            <tr><td><code>GET /api/passes/apple</code></td><td>A signed <code>.pkpass</code> file, as <code>application/vnd.apple.pkpass</code></td></tr>
+            <tr><td><code>GET /api/passes/google</code></td><td>A <code>302</code> redirect to the signed Save to Google Wallet link</td></tr>
+            <tr><td>Either route with <code>&amp;format=json</code></td><td>The unsigned pass data, even in demo mode</td></tr>
           </tbody>
         </table></div>
-        <p>The home page would list the available cards, each with both "Add to Wallet" buttons pointing at these routes. Card details are passed as query parameters, then validated on the server before any pass is built.</p>
-        <div class="note plan"><strong>Not built yet:</strong> route names and behavior may change as the integrations are implemented.</div>
+        <div class="code-block"><div class="bar-top"><span>example</span><button class="copy" type="button">Copy</button></div><pre>/api/passes/apple?card=membership&amp;name=Jordan%20Lee</pre></div>
+        <p><code>card</code> is <code>membership</code>, <code>loyalty</code>, or <code>event</code>. The name is checked in the browser and again on the server: 1 to 40 letters, spaces, apostrophes, periods, or hyphens.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Status</th><th>When</th></tr></thead>
+          <tbody>
+            <tr><td><code>400</code></td><td>Unknown card or invalid name. The response says what's wrong.</td></tr>
+            <tr><td><code>503</code></td><td>That platform has no credentials. The response lists the missing settings.</td></tr>
+            <tr><td><code>500</code></td><td>Signing failed, usually because a certificate or key is wrong. Details go to the server log.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Every pass gets a card number derived from the card type and name. The preview and the pass always show the same number, and saving the same card again updates one Google Wallet pass instead of adding a second.</p>
       </section>
 
       <section id="accounts">
-        <h2><span class="n">6</span>Accounts and keys</h2>
+        <h2><span class="n">6</span>Configuration</h2>
         <p>Real passes can only be issued with accounts from each platform. None of these are part of the repository.</p>
         <div class="table-wrap"><table>
           <thead><tr><th>Platform</th><th>You need</th></tr></thead>
@@ -365,7 +426,43 @@ npm run dev</pre></div>
             <tr><td>Google Wallet</td><td>A Google Wallet API issuer account (from the Google Pay &amp; Wallet Console), and a Google Cloud service account with a key, linked to the issuer account</td></tr>
           </tbody>
         </table></div>
-        <div class="note warn"><strong>Keep keys secret:</strong> certificates, private keys, and service account files must never be committed. Store them as environment variables or in your host's secret manager.</div>
+        <p>To use real credentials instead of the demo ones, copy <code>.env.example</code> to <code>.env.local</code> (replacing the demo file) and fill in the values. Each platform turns on as soon as all of its required values are set. Restart the app after changing <code>.env.local</code>.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Variable</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code>APPLE_PASS_TYPE_ID</code></td><td>Your Pass Type ID, such as <code>pass.com.yourcompany.membership</code></td></tr>
+            <tr><td><code>APPLE_TEAM_ID</code></td><td>Your 10-character Apple Team ID</td></tr>
+            <tr><td><code>APPLE_WWDR_CERT</code></td><td>Apple's WWDR intermediate certificate</td></tr>
+            <tr><td><code>APPLE_SIGNER_CERT</code></td><td>Your Pass Type ID certificate</td></tr>
+            <tr><td><code>APPLE_SIGNER_KEY</code></td><td>The private key for that certificate</td></tr>
+            <tr><td><code>APPLE_SIGNER_KEY_PASSPHRASE</code></td><td>Optional. Only if the key is encrypted.</td></tr>
+            <tr><td><code>GOOGLE_ISSUER_ID</code></td><td>Your numeric Google Wallet issuer ID</td></tr>
+            <tr><td><code>GOOGLE_SERVICE_ACCOUNT_EMAIL</code></td><td><code>client_email</code> from the service account key file</td></tr>
+            <tr><td><code>GOOGLE_PRIVATE_KEY</code></td><td><code>private_key</code> from the service account key file</td></tr>
+            <tr><td><code>PUBLIC_SITE_URL</code></td><td>Optional. The site's public HTTPS address, so Google Wallet can load the card logo.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Certificates and keys can be pasted as PEM text with <code>\n</code> line breaks, or as base64 of the whole PEM file.</p>
+        <div class="note warn"><strong>Keep keys secret:</strong> certificates, private keys, and service account files must never be committed. <code>.env.local</code> is already in <code>.gitignore</code>. When hosting, set them in your host's environment settings. The pass routes sign on the server, so the app needs a Node.js host such as Vercel rather than static hosting.</div>
+      </section>
+
+      <section id="testing">
+        <h2><span class="n">7</span>Testing</h2>
+        <p>Real credentials can't live in a public repository, so the tests create stand-ins each run: a throwaway certificate authority in place of Apple's, a signer certificate it issues, and an RSA key pair in place of a Google service account key. They then build real passes and check them with tools that are independent of the app.</p>
+        <div class="code-block"><div class="bar-top"><span>bash</span><button class="copy" type="button">Copy</button></div><pre>npm test</pre></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Checks</th><th>How</th></tr></thead>
+          <tbody>
+            <tr><td>The <code>.pkpass</code> holds pass.json, the images, a manifest, and a signature</td><td>Unpacked with the system <code>unzip</code></td></tr>
+            <tr><td>The manifest lists the right SHA-1 hash for every file</td><td>Hashes recomputed in the test</td></tr>
+            <tr><td>The Apple signature is valid, and fails if the manifest is changed</td><td><code>openssl cms -verify</code> against the test authority</td></tr>
+            <tr><td>The Google token is signed correctly, and fails if the claims are changed</td><td>Verified with the test public key using Node's <code>crypto</code></td></tr>
+            <tr><td>The routes return <code>400</code>, <code>503</code>, JSON previews, the <code>.pkpass</code> download, and the Google redirect</td><td>Route handlers called directly</td></tr>
+            <tr><td><code>npm run demo:setup</code> writes working credentials and never overwrites real ones</td><td>The script is run into a temporary folder, and its output is used to sign passes</td></tr>
+            <tr><td>Card validation and numbering</td><td>Unit tests</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note">A wallet app accepts a pass only when it's signed with credentials issued by Apple or Google, so the last step is to save a pass on a real phone with your own accounts.</div>
       </section>
 
       <footer>

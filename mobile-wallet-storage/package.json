@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "embed-images": "node scripts/embed-pass-images.mjs",
+    "demo:setup": "node scripts/setup-demo.mjs"
   },
   "dependencies": {
     "next": "^16.4.6",
+    "passkit-generator": "^3.7.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
@@ -19,6 +23,10 @@
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
+  },
+  "overrides": {
+    "joi": "18.3.2"
   }
 }
